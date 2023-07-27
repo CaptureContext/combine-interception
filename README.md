@@ -1,8 +1,28 @@
-# combine-extensions
+# combine-interception
 
-[![SwiftPM 5.3](https://img.shields.io/badge/swiftpm-5.3-ED523F.svg?style=flat)](https://swift.org/download/) ![Platforms](https://img.shields.io/badge/Platforms-iOS_13_|_macOS_10.15_|_tvOS_14_|_watchOS_7-ED523F.svg?style=flat) [![@maximkrouk](https://img.shields.io/badge/contact-@capturecontext-1DA1F2.svg?style=flat&logo=twitter)](https://twitter.com/capture_context) 
+[![SwiftPM 5.8](https://img.shields.io/badge/swiftpm-5.8-ED523F.svg?style=flat)](https://swift.org/download/) ![Platforms](https://img.shields.io/badge/Platforms-iOS_13_|_macOS_10.15_|_tvOS_14_|_watchOS_7-ED523F.svg?style=flat) [![@maximkrouk](https://img.shields.io/badge/contact-@capturecontext-1DA1F2.svg?style=flat&logo=twitter)](https://twitter.com/capture_context) 
 
-Package extending Apple' `Combine` framework for interception of objc selectors.
+Package extending Apple `Combine` framework for interception of objc selectors.
+
+## Usage
+
+### Basic
+
+Observe any selectors on NSObject instances
+
+```swift
+navigationController
+  .publisher(for: #selector(UINavigationController.popViewController))
+```
+
+### Library
+
+If you use it to create a library it may be a good idea to export this one implicitly
+
+```swift
+// Exports.swift
+@_exported import CombineInterception
+```
 
 ## Installation
 
@@ -34,28 +54,8 @@ Do not forget about target dependencies:
 )
 ```
 
-## Usage
-
-### Basic
-
-Observe any selectors on NSObject instances
-
-```swift
-navigationController
-  .publisher(for: #selector(UINavigationController.popViewController))
-```
-
-### Library
-
-If you use it to create a library it may be a good idea to export this one implicitly
-
-```swift
-// Exports.swift
-@_exported import CombineInterception
-```
-
 ## License
 
 This library is released under the MIT license. See [LICENSE](LICENSE) for details.
 
-See [ACKNOWLEDGMENTS][ACKNOWLEDGMENTS] for inspiration references and their licences.
+See [ACKNOWLEDGMENTS](ACKNOWLEDGMENTS) for inspiration references and their licences.
