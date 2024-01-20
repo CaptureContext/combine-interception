@@ -1,11 +1,13 @@
 import XCTest
 @testable import CombineInterception
 
+// Tested extensively here
+// https://github.com/maximkrouk/ReactiveCocoa/blob/interception-improvements/ReactiveCocoaTests/InterceptingSpec.swift
 final class CombineInterceptionTests: XCTestCase {
 	func testMain() {
 		class Object: NSObject {
-			@objc
-			func booleanForInteger(_ value: NSNumber) -> Bool {
+			@objc dynamic
+			func booleanForInteger(_ value: Int) -> Bool {
 				value != 0
 			}
 		}
@@ -16,26 +18,18 @@ final class CombineInterceptionTests: XCTestCase {
 		var _count = 0
 		let cancellable = object.intercept(#selector(Object.booleanForInteger))
 			.sink { selector in
-				selector.args.first.flatMap { $0 as? Int }.map { _args.append($0) }
+				selector.args.first.flatMap { $0 as? NSNumber }.map(\.intValue).map { _args.append($0) }
 				selector.output.flatMap { $0 as? Bool }.map { _outputs.append($0) }
 				_count += 1
 			}
 
-		object.performSelector(
-			onMainThread: #selector(Object.booleanForInteger),
-			with: 0,
-			waitUntilDone: true
-		)
-
-		object.performSelector(
-			onMainThread: #selector(Object.booleanForInteger),
-			with: 1,
-			waitUntilDone: true
-		)
+		XCTAssertFalse(object.booleanForInteger(0))
+		XCTAssertTrue(object.booleanForInteger(1))
 
 		XCTAssertEqual(_count, 2)
 		XCTAssertEqual(_args, [0, 1])
 		XCTAssertEqual(_outputs, [false, true])
+
 		cancellable.cancel()
 	}
 }
