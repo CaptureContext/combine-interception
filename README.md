@@ -1,6 +1,6 @@
 # combine-interception
 
-[![SwiftPM 5.8](https://img.shields.io/badge/swiftpm-5.8-ED523F.svg?style=flat)](https://swift.org/download/) ![Platforms](https://img.shields.io/badge/Platforms-iOS_13_|_macOS_10.15_|_tvOS_14_|_watchOS_7-ED523F.svg?style=flat) [![@maximkrouk](https://img.shields.io/badge/contact-@capturecontext-1DA1F2.svg?style=flat&logo=twitter)](https://twitter.com/capture_context) 
+[![SwiftPM 5.9](https://img.shields.io/badge/swiftpm-5.9-ED523F.svg?style=flat)](https://swift.org/download/) ![Platforms](https://img.shields.io/badge/Platforms-iOS_13_|_macOS_10.15_|_Catalyst_13_|_tvOS_14_|_watchOS_7-ED523F.svg?style=flat) [![@capturecontext](https://img.shields.io/badge/contact-@capturecontext-1DA1F2.svg?style=flat&logo=twitter)](https://twitter.com/capture_context) 
 
 Package extending Apple `Combine` framework for interception of objc selectors.
 
@@ -13,6 +13,9 @@ Observe any selectors on NSObject instances
 ```swift
 navigationController
   .publisher(for: #selector(UINavigationController.popViewController))
+  .sink { (args, output) in
+    // ...
+  }
 ```
 
 ### Library
@@ -41,7 +44,7 @@ If you use SwiftPM for your project, you can add CombineInterception to your pac
 ```swift
 .package(
   url: "https://github.com/capturecontext/combine-interception.git", 
-  .upToNextMinor(from: "0.0.1")
+  .upToNextMinor(from: "0.1.0")
 )
 ```
 
