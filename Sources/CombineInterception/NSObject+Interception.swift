@@ -32,8 +32,8 @@ extension NSObject {
 	///
 	/// - returns: A trigger publisher.
 	@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-	public func publisher(for selector: Selector) -> AnyPublisher<Void, Never> {
-		return intercept(selector).map { _ in }.eraseToAnyPublisher()
+	public func publisher(for selector: Selector) -> some Publisher<Void, Never> {
+		return intercept(selector).map { _ in }
 	}
 	
 	/// Create a publisher which sends a `next` event, containing an array of
@@ -50,8 +50,8 @@ extension NSObject {
 	///
 	/// - returns: A publisher that sends an array of bridged arguments.
 	@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-	public func intercept(_ selector: Selector) -> AnyPublisher<(args: [Any?], output: Any?), Never> {
-		return _intercept(selector).map(unpackInvocation).eraseToAnyPublisher()
+	public func intercept(_ selector: Selector) -> some Publisher<(args: [Any?], output: Any?), Never> {
+		return _intercept(selector).map(unpackInvocation)
 	}
 	
 	/// Setup the method interception.
@@ -63,7 +63,7 @@ extension NSObject {
 	/// - returns: A publisher that sends the corresponding `NSInvocation` after
 	///            every invocation of the method.
 	@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-	@nonobjc fileprivate func _intercept(_ selector: Selector) -> AnyPublisher<AnyObject, Never> {
+	@nonobjc fileprivate func _intercept(_ selector: Selector) -> some Publisher<AnyObject, Never> {
 		guard let method = class_getInstanceMethod(objcClass, selector) else {
 			fatalError(
 				"Selector `\(selector)` does not exist in class `\(String(describing: objcClass))`."
@@ -79,7 +79,7 @@ extension NSObject {
 			let interopAlias = selector.interopAlias
 			
 			if let state = associations.value(forKey: stateKey) {
-				return state.subject.eraseToAnyPublisher()
+				return state.subject
 			}
 			
 			let subclass: AnyClass = swizzleClass(self)
@@ -141,7 +141,7 @@ extension NSObject {
 			// Start forwarding the messages of the selector.
 			_ = class_replaceMethod(subclass, selector, _combineRuntimeMsgForward, typeEncoding)
 			
-			return state.subject.eraseToAnyPublisher()
+			return state.subject
 		}
 	}
 }
@@ -508,6 +508,8 @@ func decodeValueFromInvocation(
 		value = extract((AnyClass?).self)
 	case .selector:
 		value = extract((Selector?).self)
+	case .void:
+		value = ()
 	case .undefined:
 		var size = 0
 		var alignment = 0

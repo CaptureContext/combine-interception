@@ -43,6 +43,7 @@ internal enum ObjCTypeEncoding: Int8 {
 	case object = 64
 	case type = 35
 	case selector = 58
-	
+
+	case void = 118
 	case undefined = -1
 }
