@@ -1,1 +1,2 @@
 @_exported import _InterceptionCustomSelectors
+@_exported import struct Interception.InterceptionResult
