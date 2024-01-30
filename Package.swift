@@ -1,6 +1,7 @@
-// swift-tools-version:5.9
+// swift-tools-version: 5.9
 
 import PackageDescription
+import CompilerPluginSupport
 
 let package = Package(
 	name: "combine-interception",
@@ -18,20 +19,27 @@ let package = Package(
 			targets: ["CombineInterception"]
 		)
 	],
+	dependencies: [
+		.package(
+			url: "https://github.com/capturecontext/swift-interception.git",
+			.upToNextMinor(from: "0.2.0")
+		)
+	],
 	targets: [
 		.target(
 			name: "CombineInterception",
 			dependencies: [
-				.target(name: "CombineRuntime")
+				.product(
+					name: "Interception",
+					package: "swift-interception"
+				)
 			]
 		),
-		.target(name: "CombineRuntime"),
-
 		.testTarget(
 			name: "CombineInterceptionTests",
 			dependencies: [
-				.target(name: "CombineInterception")
+				.target(name: "CombineInterception"),
 			]
-		)
+		),
 	]
 )

@@ -1,4 +1,0 @@
-module CombineRuntime {
-    umbrella header "ObjcDelegateProxy.h"
-    export *
-}
