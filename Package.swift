@@ -43,6 +43,7 @@ let package = Package(
 		.target(
 			name: "CombineInterceptionMacros",
 			dependencies: [
+				.target(name: "CombineInterception"),
 				.product(
 					name: "_InterceptionMacros",
 					package: "swift-interception"
