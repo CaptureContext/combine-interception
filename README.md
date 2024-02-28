@@ -4,8 +4,6 @@
 
 Combine API for interception of objc selectors in Swift.
 
-Macros: [`combine-interception-macros`](https://github.com/capturecontext/combine-interception-macros)
-
 ## Usage
 
 ### Basic
@@ -15,13 +13,26 @@ Observe selectors on NSObject instances
 ```swift
 navigationController.intercept(_makeMethodSelector(
   selector: UINavigationController.popViewController,
-  signature: UINavigationController.popViewController
+  signature: navigationController.popViewController
 ))
 .sink { result in
   print(result.args) // `animated` flag
   print(result.output) // popped `UIViewController?`
 }
 ```
+
+You can also simplify creating method selector with `CombineInterceptionMacros` if you are open for macros
+
+```swift
+navigationController.intercept(
+  #methodSelector(UINavigationController.popViewController)
+).sink { result in
+  print(result.args) // `animated` flag
+  print(result.output) // popped `UIViewController?`
+}
+```
+
+>  Macros require `swift-syntax` compilation, so it will affect cold compilation time
 
 ### Library
 
@@ -30,6 +41,13 @@ If you use it to create a library it may be a good idea to export this one impli
 ```swift
 // Exports.swift
 @_exported import CombineInterception
+```
+
+It's a good idea to add a separate macros target to your library as well
+
+```swift
+// Exports.swift
+@_exported import CombineInterceptionMacros
 ```
 
 ## Installation
@@ -49,7 +67,7 @@ If you use SwiftPM for your project, you can add CombineInterception to your pac
 ```swift
 .package(
   url: "https://github.com/capturecontext/combine-interception.git", 
-  .upToNextMinor(from: "0.2.0")
+  .upToNextMinor(from: "0.3.0")
 )
 ```
 
@@ -61,6 +79,15 @@ Do not forget about target dependencies:
   package: "combine-interception"
 )
 ```
+
+```swift
+.product(
+  name: "CombineInterceptionMacros",
+  package: "combine-interception"
+)
+```
+
+
 
 ## License
 

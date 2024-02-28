@@ -17,12 +17,17 @@ let package = Package(
 			name: "CombineInterception",
 			type: .static,
 			targets: ["CombineInterception"]
-		)
+		),
+		.library(
+			name: "CombineInterceptionMacros",
+			type: .static,
+			targets: ["CombineInterceptionMacros"]
+		),
 	],
 	dependencies: [
 		.package(
 			url: "https://github.com/capturecontext/swift-interception.git",
-			.upToNextMinor(from: "0.2.0")
+			.upToNextMinor(from: "0.3.0")
 		)
 	],
 	targets: [
@@ -35,10 +40,25 @@ let package = Package(
 				)
 			]
 		),
+		.target(
+			name: "CombineInterceptionMacros",
+			dependencies: [
+				.product(
+					name: "_InterceptionMacros",
+					package: "swift-interception"
+				)
+			]
+		),
 		.testTarget(
 			name: "CombineInterceptionTests",
 			dependencies: [
 				.target(name: "CombineInterception"),
+			]
+		),
+		.testTarget(
+			name: "CombineInterceptionMacrosTests",
+			dependencies: [
+				.target(name: "CombineInterceptionMacros"),
 			]
 		),
 	]
