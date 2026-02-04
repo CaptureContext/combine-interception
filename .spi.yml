@@ -1,5 +1,20 @@
 version: 1
 builder:
   configs:
-  - documentation_targets: [CombineInterception]
-    swift_version: 5.9
+  - platform: ios
+    scheme: CombineInterception
+
+  - platform: macos-spm
+    scheme: CombineInterception
+
+  - platform: macos-xcodebuild
+    scheme: CombineInterception
+
+  - platform: tvos
+    scheme: CombineInterception
+
+  - platform: watchos
+    scheme: CombineInterception
+
+  - documentation_targets:
+    - CombineInterception
