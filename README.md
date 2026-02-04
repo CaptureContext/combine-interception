@@ -1,8 +1,25 @@
 # combine-interception
 
-[![CI](https://github.com/CaptureContext/combine-interception/actions/workflows/ci.yml/badge.svg)](https://github.com/CaptureContext/combine-interception/actions/workflows/ci.yml) [![SwiftPM 5.9](https://img.shields.io/badge/swiftpm-5.9-ED523F.svg?style=flat)](https://swift.org/download/) ![Platforms](https://img.shields.io/badge/Platforms-iOS_13_|_macOS_10.15_|_Catalyst_13_|_tvOS_14_|_watchOS_7-ED523F.svg?style=flat) [![@capturecontext](https://img.shields.io/badge/contact-@capturecontext-1DA1F2.svg?style=flat&logo=twitter)](https://twitter.com/capture_context) 
+[![CI](https://github.com/capturecontext/combine-interception/actions/workflows/ci.yml/badge.svg)](https://github.com/capturecontext/combine-interception/actions/workflows/ci.yml) [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fcapturecontext%2Fcombine-interception%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/capturecontext/combine-interception) [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fcapturecontext%2Fcombine-interception%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/capturecontext/combine-interception)
 
-Combine API for interception of objc selectors in Swift.
+Combine API for intercepting Objective-C selector invocations in Swift.
+
+## Table of contents
+
+- [Motivation](#motivation)
+- [Usage](#usage)
+  - [Basic](#basic)
+  - [Library development](#library-development)
+- [Installation](#installation)
+- [License](#license)
+
+## Motivation
+
+Many Cocoa APIs rely on delegate callbacks and Objective-C selectors.
+
+While Combine provides powerful tools for working with asynchronous streams, it does not offer built-in support for observing selector-based APIs. Integrating such APIs often requires writing custom delegate proxies or bridging imperative callbacks into publishers manually.
+
+This package provides a Combine-friendly API for intercepting Objective-C selector invocations, allowing delegate-style APIs to be observed and transformed using publishers.
 
 ## Usage
 
@@ -67,7 +84,7 @@ If you use SwiftPM for your project, you can add CombineInterception to your pac
 ```swift
 .package(
   url: "https://github.com/capturecontext/combine-interception.git", 
-  .upToNextMinor(from: "0.3.0")
+  .upToNextMinor(from: "0.4.0")
 )
 ```
 
@@ -91,6 +108,6 @@ Do not forget about target dependencies:
 
 ## License
 
-This library is released under the MIT license. See [LICENCE](LICENCE) for details.
+This library is released under the MIT license. See [LICENSE](LICENSE) for details.
 
 See [ACKNOWLEDGMENTS](ACKNOWLEDGMENTS) for inspiration references and their licences.
