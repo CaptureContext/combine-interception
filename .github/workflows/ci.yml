@@ -36,5 +36,5 @@ jobs:
         action: xcodebuild-test
         platform: ${{ matrix.platform }}
         workspace: .swiftpm/xcode/package.xcworkspace
-        scheme: swift-interception-Package
+        scheme: combine-interception-Package
         config: Debug
