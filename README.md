@@ -104,7 +104,9 @@ Do not forget about target dependencies:
 )
 ```
 
-
+> [!NOTE]
+>
+> _The package is compatible with non-Apple platforms, however this package uses conditional compilation, so APIs are only available on Apple platforms_
 
 ## License
 
