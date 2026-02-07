@@ -10,7 +10,7 @@ let package = Package(
 		.macOS(.v10_15),
 		.tvOS(.v13),
 		.macCatalyst(.v13),
-		.watchOS(.v6)
+		.watchOS(.v6),
 	],
 	products: [
 		.library(
@@ -27,8 +27,8 @@ let package = Package(
 	dependencies: [
 		.package(
 			url: "https://github.com/capturecontext/swift-interception.git",
-			.upToNextMinor(from: "0.4.0")
-		)
+			.upToNextMinor(from: "0.4.4")
+		),
 	],
 	targets: [
 		.target(
