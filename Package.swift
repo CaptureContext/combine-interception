@@ -27,7 +27,7 @@ let package = Package(
 	dependencies: [
 		.package(
 			url: "https://github.com/capturecontext/swift-interception.git",
-			.upToNextMinor(from: "0.4.4")
+			.upToNextMinor(from: "0.4.7")
 		),
 	],
 	targets: [
